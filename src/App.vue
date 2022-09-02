@@ -1,42 +1,100 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+<body :class="[gameVar.isActive ? 'blue' : 'green']">
+    <div id="container">
+        <ActionBtn :gameVar="gameVar">
+        </ActionBtn>
+        <Score :gameVar="gameVar">
+        </Score>
     </div>
-  </header>
+</body>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<script>
+import ActionBtn from './components/ActionBtn.vue'
+import Score from './components/Score.vue'
+export default {
+    components: {
+        ActionBtn,
+        Score
+    },
+    data() {
+        return {
+            gameVar: {
+                show: true,
+                isActive: true,
+                timeStart: 0,
+                timeStop: 0,
+                diff: 0,
+                score: 0,
+                highscore: "No highscore yet.",
+                details: "Click Go to test your reaction time!",
+                firstRun: 1,
+                timeout: 0,
+            }
+        };
+
+    },
+
+};
+</script>
+
+<style>
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-@media (min-width: 1024px) {
-  header {
+#container {
     display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+.blue {
+    background-color: dodgerblue;
+}
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.green {
+    background-color: green;
+}
+
+#details {
+    margin-bottom: 40px;
+}
+
+.actionBtn,
+#score {
+    height: 150px;
+    width: 60vw;
+    border: 1px solid transparent;
+    border-radius: 15px;
+    margin: 20px;
+}
+
+.actionBtn {
+    color: white;
+    font-size: 3em;
+    cursor: pointer;
+}
+
+#go {
+    background-color: mediumseagreen;
+}
+
+#stop {
+    background-color: tomato;
+}
+
+#score {
+    background-color: #d9edf7;
+    padding: 10px 25px 10px 25px;
+    font-size: 1.5em;
 }
 </style>
